@@ -1,60 +1,65 @@
-# **Databricks MLOps Finance Pipeline — Professional Template**
+# **Databricks MLOps Finance Pipeline — Projeto Profissional**
 
-A professional template to build **end-to-end Data + ML pipelines** for **finance / logistics / customer analytics** on **Databricks**, using **MLflow** and strong engineering practices.
+Este repositório implementa um projeto profissional de **Data + Machine Learning** em **Databricks**, utilizando **MLflow** e boas práticas de engenharia para construir e operar pipelines ponta a ponta em cenários de **finanças / logística / comportamento de clientes**.
 
-This template supports a repeatable workflow:
-**ingest → Bronze/Silver/Gold → features → train → evaluate → quality gate → register → batch scoring → monitoring → retrain**
-
----
-
-## Design goals
-
-- **Databricks-native**: Delta/Unity Catalog patterns, and deployment via **Databricks Asset Bundles (DAB)**.
-- **Professional-by-default**: clean structure, documentation, conventions, testing, and CI.
-- **Reproducible & traceable**: MLflow tracking, dataset/version tagging, and artifact logging.
-- **Operational ready**: monitoring, alerting hooks, and runbooks for incident response.
-- **Free-friendly (GitHub side)**: public repo, GitHub Actions, and open-source lint/test tooling.
+O fluxo do projeto segue um ciclo repetível e operacional:
+**ingestão → Bronze/Silver/Gold → features → treino → avaliação → quality gate → registro → batch scoring → monitoramento → retreino**
 
 ---
 
-## What’s included
+## Objetivos de design
 
-- **Databricks Asset Bundles (DAB)** entrypoint (`databricks.yml`)
-- **Workflow/Job definitions** under `resources/`
-- **Notebooks exported as .py** (works well with Git versioning) under `notebooks/`
-- **Reusable Python package** under `src/`
-- **Tests** under `tests/` (smoke/unit)
-- **Docs**:
-  - CRISP-DM + MLOps roadmap: `docs/roadmap_crispdm_mlops.md`
-  - ADRs (decisions): `docs/decisions/`
-  - Runbooks: `docs/runbook/`
-  - Architecture assets (optional): `docs/architecture/`
-- **GitHub templates** (Issues/PR) and **CI** workflows under `.github/`
+- **Nativo de Databricks**: padrões com **Delta Lake / Unity Catalog** e deploy via **Databricks Asset Bundles (DAB)**.
+- **Padrão profissional**: estrutura limpa, documentação, convenções, testes e CI.
+- **Reprodutível e rastreável**: tracking no MLflow, versionamento/tagging do dataset e logging de artefatos.
+- **Pronto para operação**: monitoramento, ganchos para alertas e runbooks para resposta a incidentes.
+- **Amigável ao GitHub**: repositório público, GitHub Actions e ferramentas open-source de lint/test.
 
 ---
 
-## Repository structure
+## O que está incluído
+
+- Entry point de **Databricks Asset Bundles (DAB)** (`databricks.yml`)
+- Definições de **Workflows/Jobs** em `resources/`
+- Notebooks exportados como `.py` (boa rastreabilidade no Git) em `notebooks/`
+- Pacote Python reutilizável em `src/`
+- Testes em `tests/` (smoke/unit)
+- CI e templates de Issues/PR em `.github/`
+
+---
+
+## Documentos
+
+- Roadmap CRISP-DM + MLOps: `docs/roadmap_crispdm_mlops.md`
+- Decisões de arquitetura (ADRs): `docs/decisions/`
+- Runbooks operacionais: `docs/runbook/`
+- Evidências e diagramas de arquitetura (opcional): `docs/architecture/`
+- Checklist de evidências (se existir no repo): `docs/evidence_checklist.md`
+
+---
+
+## Estrutura do repositório
 
 ```
 .
-├─ databricks.yml                  # Databricks Asset Bundle (DAB) entrypoint
-├─ resources/                      # DAB resources (workflows/jobs/pipelines)
-├─ notebooks/                      # Databricks notebooks (exported as .py)
-├─ src/                            # Python package (reusable logic)
-├─ tests/                          # Unit/smoke tests
+├─ databricks.yml                  # Entry point do Databricks Asset Bundle (DAB)
+├─ resources/                      # Recursos do DAB (workflows/jobs/pipelines)
+├─ notebooks/                      # Notebooks do Databricks (exportados como .py)
+├─ src/                            # Pacote Python (lógica reutilizável)
+├─ tests/                          # Testes unitários e smoke tests
 ├─ docs/
-│  ├─ roadmap_crispdm_mlops.md     # CRISP-DM mapped to MLOps deliverables
-│  ├─ architecture/                # Diagrams and architecture evidence (optional)
-│  ├─ decisions/                   # ADRs (architecture decision records)
-│  └─ runbook/                     # Operational runbooks
-└─ .github/                        # CI, issue templates, PR template, label sync
+│  ├─ roadmap_crispdm_mlops.md     # CRISP-DM mapeado para entregáveis de MLOps
+│  ├─ architecture/                # Diagramas e evidências de arquitetura (opcional)
+│  ├─ decisions/                   # ADRs (Architecture Decision Records)
+│  └─ runbook/                     # Runbooks operacionais
+└─ .github/                        # CI, issue templates, PR template, sync de labels
 ```
 
 ---
 
-## Local development (free)
+## Desenvolvimento local (gratuito)
 
-1) Create a virtual environment and install dev dependencies:
+1) Crie um ambiente virtual e instale dependências de desenvolvimento:
 
 ```bash
 python -m venv .venv
@@ -62,7 +67,7 @@ source .venv/bin/activate  # Windows: .venv\Scripts\activate
 pip install -r requirements-dev.txt
 ```
 
-2) Run lint + tests:
+2) Rode lint + testes:
 
 ```bash
 ruff check .
@@ -71,11 +76,11 @@ pytest -q
 
 ---
 
-## Databricks deployment (DAB)
+## Deploy no Databricks (DAB)
 
-This template is designed around **Databricks Asset Bundles**.
+Este projeto é organizado para **Databricks Asset Bundles**.
 
-Typical commands:
+Comandos típicos:
 
 ```bash
 databricks bundle validate
@@ -83,49 +88,50 @@ databricks bundle deploy -t dev
 databricks bundle run -t dev main_pipeline
 ```
 
-You must have the Databricks CLI configured and authenticated for your workspace.
-Recommended: store workspace credentials using a secure method (never commit tokens).
+Pré-requisitos:
+- Databricks CLI configurado e autenticado no seu workspace.
+- Recomendação: armazenar credenciais de forma segura (nunca commitar tokens).
 
 ---
 
-## How to use this template in a new project
+## Como evoluir o projeto (próximos passos técnicos)
 
-1) Implement ingestion in:
-- `notebooks/01_ingest_bronze.py` (e.g., API pull, file drop, autoloader)
+1) Implementar ingestão em:
+- `notebooks/01_ingest_bronze.py` (ex.: API, drop de arquivos, autoloader)
 
-2) Implement transformations and data quality in:
+2) Implementar transformações e qualidade em:
 - `notebooks/02_transform_silver_gold.py`
-  (or switch to DLT pipelines if you want managed expectations/lineage)
+  (ou migrar para DLT se desejar expectations/lineage gerenciados)
 
-3) Implement training and experiment tracking in:
-- `notebooks/03_train_mlflow.py` (log params/metrics/artifacts, tag dataset version, register model)
+3) Implementar treino e tracking de experimentos em:
+- `notebooks/03_train_mlflow.py` (log de params/métricas/artefatos, tag de versão do dataset, registro de modelo)
 
-4) Implement scoring in:
-- `notebooks/04_batch_scoring.py` (load model from MLflow Registry, write predictions to Gold)
+4) Implementar scoring em batch em:
+- `notebooks/04_batch_scoring.py` (carregar modelo do MLflow Registry e gravar previsões na camada Gold)
 
-5) Add monitoring and operational procedures:
-- monitoring code under `src/monitoring/` (optional)
-- runbooks under `docs/runbook/`
-
----
-
-## Conventions (recommended)
-
-- **Naming**: keep consistent job/task names, table names, and MLflow tags.
-- **MLflow tags**: `dataset_version`, `git_sha`, `owner`, `use_case`, `env`.
-- **Data layers**: Bronze (raw), Silver (clean), Gold (consumption/model-ready).
-- **Quality gate**: promote model versions only when evaluation + checks pass.
+5) Adicionar monitoramento e rotinas operacionais:
+- código de monitoramento em `src/monitoring/` (opcional)
+- procedimentos e resposta a incidentes em `docs/runbook/`
 
 ---
 
-## Security
+## Convenções (recomendadas)
 
-- Do not commit secrets (tokens, keys, credentials).
-- Use `.env.example` for local variables.
-- Prefer Databricks Secret Scopes / CI secrets for automation.
+- **Naming**: manter consistência nos nomes de jobs/tasks, tabelas e tags do MLflow.
+- **Tags MLflow**: `dataset_version`, `git_sha`, `owner`, `use_case`, `env`.
+- **Camadas de dados**: Bronze (bruto), Silver (limpo), Gold (consumo/model-ready).
+- **Quality gate**: promover versões de modelo apenas quando avaliação e checks passarem.
 
 ---
 
-## License
+## Segurança
 
-MIT. See `LICENSE`.
+- Não commitar segredos (tokens, chaves, credenciais).
+- Usar `.env.example` para variáveis locais.
+- Preferir Databricks Secret Scopes / GitHub Secrets para automação.
+
+---
+
+## Licença
+
+MIT. Veja `LICENSE`.
