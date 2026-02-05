@@ -35,6 +35,7 @@ O fluxo do projeto segue um ciclo repetível e operacional:
 - Runbooks operacionais: `docs/runbook/`
 - Evidências e diagramas de arquitetura (opcional): `docs/architecture/`
 - Checklist de evidências (se existir no repo): `docs/evidence_checklist.md`
+- Board Scrum (GitHub Project): `docs/github_project_scrum_board.md`
 
 ---
 
