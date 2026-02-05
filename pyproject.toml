@@ -1,0 +1,18 @@
+[project]
+name = "databricks-mlops-finance-pipeline"
+version = "0.1.0"
+description = "Databricks + MLflow MLOps template for finance/logistics/customer use cases."
+requires-python = ">=3.10"
+dependencies = []
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

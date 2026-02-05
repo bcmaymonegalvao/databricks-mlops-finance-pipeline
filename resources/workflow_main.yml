@@ -1,0 +1,23 @@
+resources:
+  jobs:
+    main_pipeline:
+      name: databricks-mlops-finance-pipeline-main
+      tasks:
+        - task_key: ingest
+          notebook_task:
+            notebook_path: notebooks/01_ingest_bronze
+        - task_key: transform
+          depends_on:
+            - task_key: ingest
+          notebook_task:
+            notebook_path: notebooks/02_transform_silver_gold
+        - task_key: train
+          depends_on:
+            - task_key: transform
+          notebook_task:
+            notebook_path: notebooks/03_train_mlflow
+        - task_key: score
+          depends_on:
+            - task_key: train
+          notebook_task:
+            notebook_path: notebooks/04_batch_scoring

@@ -1,0 +1,25 @@
+name: Task
+description: Implementation task with clear acceptance criteria.
+title: "[Task]: "
+labels: ["type:task"]
+body:
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Why do we need this task?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Implementation notes
+      description: How should we approach it?
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      placeholder: |
+        - [ ] ...
+    validations:
+      required: true
