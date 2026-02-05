@@ -1,4 +1,4 @@
-# Databricks MLOps Finance Pipeline — Professional Template
+# **Databricks MLOps Finance Pipeline — Professional Template**
 
 A professional template to build **end-to-end Data + ML pipelines** for **finance / logistics / customer analytics** on **Databricks**, using **MLflow** and strong engineering practices.
 
