@@ -150,3 +150,35 @@ def normalize(rows: list[dict[str, Any]]) -> pd.DataFrame:
     pdf["source"] = "bcb_ptax"
     return pdf[["ds", "ptax_buy", "ptax_sell", "dataHoraCotacao", "tipoBoletim", "source"]]
 
+
+# COMMAND ----------
+
+def upsert_bronze(target_table: str, pdf: pd.DataFrame) -> None:
+    if pdf.empty:
+        print("Nenhum dado retornado pela API para o período informado.")
+        return
+    
+    sdf = spark.createDataFrame(pdf) # type: ignore[name-defined]
+
+    # tipagem consistente
+    sdf = (
+        sdf.withColumn("ds", F.to_date("ds"))
+        .withColumn("ptax_buy", F.col("ptax_buy").cast("double"))
+        .withColumn("ptax_sell", F.col(ptax_sell).cast("double"))
+        .withColumn("dataHoraCotacao", F.to_timestamp("dataHoraCotacao"))
+        .withColumn("ingestion_ts", F.current_timestamp())
+    )
+
+    # garante schema/database
+    spark.sql(f"CREATE SCHEMA IF NOT EXISTS {schema_fq(BRONZE_SCHEMA)}") # type: ignore[name-defined]
+
+    if not table_exists(target_table):
+        (
+            sdf.write.format("delta")
+            .mode("overwrite")
+            .savaAsTable(target_table)
+        )
+        print(f"Tabela")
+
+    # merge idempotente por ds
+    delta = DeltaTable.forName(spark, target_table) # ta
